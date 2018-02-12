@@ -1,0 +1,14 @@
+language: csharp
+solution: EmanAdventures.sln
+install:
+  # MonoGame 3.6
+  - sudo apt-get install gtk-sharp3
+  - wget http://www.monogame.net/releases/v3.6/monogame-sdk.run  
+  - chmod +x ./monogame-sdk.run
+  - echo y | sudo ./monogame-sdk.run
+  - nuget restore
+  # NUnit
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - msbuild
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./EmanAdventures.Core.UnitTests/bin/Debug/EmanAdventures.Core.UnitTests.dll
